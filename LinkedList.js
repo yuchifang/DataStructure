@@ -35,10 +35,19 @@ LinkedList.prototype.append = function (element) {
 }
 
 LinkedList.prototype.insert = function (index, element) {
+    if (index <= -1) return false
+    if (index > this.length - 1) {
+        this.append(element)
+        return true
+    }
 
-    if (index <= -1 || index > this.length) return false
     let newNode = new LinkedListNode(element)
     let current = this.head
+
+    if (this.length === 0 && index === 0) {
+        this.append(element)
+        return
+    }
 
     if (index === 0) {
         this.head = newNode
@@ -48,12 +57,12 @@ LinkedList.prototype.insert = function (index, element) {
     }
 
     if (index > 0) {
-        let index = 0
+        let i = 0
         let previousNode
-        while (index !== index) {
+        while (i !== index) {
             previousNode = current
             current = current.next
-            index++
+            i++
         }
         previousNode.next = newNode
         newNode.next = current
@@ -64,7 +73,7 @@ LinkedList.prototype.insert = function (index, element) {
 }
 
 LinkedList.prototype.removeAt = function (index) {
-    if (index <= -1 || index > this.length) return false
+    if (index <= -1 || index > this.length - 1) return false
 
     if (this.length === 0) return false // 為空
 
@@ -156,17 +165,26 @@ LinkedList.prototype.print = function () {
     return JSON.stringify(this.head)
 }
 
-let list = new LinkedList
+LinkedList.prototype.size = function () {
+    return this.length
+}
 
+let list = new LinkedList
 list.append(1)
 list.insert(1, "5")
 list.insert(0, "4")
+console.log(list.size())
 list.insert(3, "3")
 list.insert(3, "2")
 list.show() // [ '4', 1, '5', '2', '3' ]
 console.log(list.indexOf('5')) // 2
 list.removeAt(list.indexOf('5'))
 list.show() // [ '4', 1, '2', '3' ]
-list.removeAt(4)
+list.removeAt(3)
 list.removeAt(1)
-list.show() // [ 1, '2']
+list.show() // [ '4', '2' ]
+list.remove('4')
+list.show() // [ '2' ]
+list.append(1)
+list.append(2)
+console.log(list.print()) // {"next":{"next":{"next":null,"element":2},"element":1},"element":"2"}
