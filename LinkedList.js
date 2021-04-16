@@ -34,24 +34,23 @@ LinkedList.prototype.append = function (element) {
     this.length++;
 }
 
-LinkedList.prototype.insert = function (position, element) {
+LinkedList.prototype.insert = function (index, element) {
 
-    if (position <= -1 || position > this.length) return false
+    if (index <= -1 || index > this.length) return false
     let newNode = new LinkedListNode(element)
     let current = this.head
 
-    if (position === 0) {
+    if (index === 0) {
         this.head = newNode
         newNode.next = current
         this.length++;
         return true
     }
 
-    if (position > 0) {
+    if (index > 0) {
         let index = 0
         let previousNode
-        while (position !== index) {
-            console.log({ index })
+        while (index !== index) {
             previousNode = current
             current = current.next
             index++
@@ -64,26 +63,26 @@ LinkedList.prototype.insert = function (position, element) {
 
 }
 
-LinkedList.prototype.removeAt = function (position) {
-    if (position <= -1 || position > this.length) return false
+LinkedList.prototype.removeAt = function (index) {
+    if (index <= -1 || index > this.length) return false
 
     if (this.length === 0) return false // 為空
 
     let currentNode = this.head
-    if (position === 0) {
+    if (index === 0) {
         this.head = this.head.next
         this.length--
         return currentNode
     }
 
-    if (position > 0) {
-        let index = 0
+    if (index > 0) {
+        let i = 0
         let previousNode
 
-        while (position !== index) {
+        while (index !== i) {
             previousNode = currentNode
             currentNode = currentNode.next
-            index++
+            i++
         }
 
         previousNode.next = currentNode.next
@@ -112,7 +111,6 @@ LinkedList.prototype.remove = function (element) {
     while (currentNode.next !== null) { // 如果是要刪第一個值刪不到
         previousNode = currentNode
         currentNode = currentNode.next
-        console.log(currentNode.element)
         if (element === currentNode.element) {
             previousNode.next = currentNode.next
             this.length--
@@ -153,18 +151,22 @@ LinkedList.prototype.show = function () {
     }
     console.log(returnArr)
 }
+
+LinkedList.prototype.print = function () {
+    return JSON.stringify(this.head)
+}
+
 let list = new LinkedList
-list.append("A")
-list.append("B")
-list.insert(1, "D")
-list.show() // [ 'A', 'D', 'B' ]
+
+list.append(1)
+list.insert(1, "5")
+list.insert(0, "4")
+list.insert(3, "3")
+list.insert(3, "2")
+list.show() // [ '4', 1, '5', '2', '3' ]
+console.log(list.indexOf('5')) // 2
+list.removeAt(list.indexOf('5'))
+list.show() // [ '4', 1, '2', '3' ]
+list.removeAt(4)
 list.removeAt(1)
-list.show() // [ 'A', 'B' ]
-list.remove("A")
-list.remove("E")
-list.show() // [ 'B' ]
-list.append("C")
-list.append("D")
-list.show() // [ 'B', 'C', 'D' ]
-console.log(list.indexOf("B")) // 0
-console.log(list.toString()) // BCD
+list.show() // [ 1, '2']
