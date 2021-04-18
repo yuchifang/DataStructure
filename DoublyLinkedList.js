@@ -166,6 +166,58 @@ class DoublyLinkedList {
         return false
     }
 
+
+    swap(nodeOne, nodeTwo) {
+        if (!this.head) {
+            return false
+        }
+
+        let currentNode = this.head
+        let firstNode
+        let tempNode
+        while (currentNode !== null) {
+            if (currentNode.element === nodeOne) {
+                firstNode = currentNode
+            }
+            if (currentNode.element === nodeTwo) {
+                tempNode = nodeTwo
+                currentNode.element = firstNode.element
+                firstNode.element = nodeTwo
+                return true
+            }
+            currentNode = currentNode.next
+
+        }
+        return false
+    }
+
+    reverse() {
+        if (!this.head) {
+            return false
+        }
+        let currentNode = this.head
+        let prev = null
+        while (currentNode) {
+            let next = currentNode.next
+            currentNode.prev = currentNode.next
+            currentNode.next = prev
+            prev = currentNode
+            currentNode = next
+
+        }
+        this.tail = this.head
+        this.head = prev
+    }
+
+    traverse(fn) {
+        let current = this.head;
+        while (current !== null) {
+            fn(current)
+            current = current.next;
+        }
+        return true;
+    }
+
     show() {
         let currentNode = this.head
         let previousNode = this.tail
@@ -215,6 +267,20 @@ list.show() //
 list.append(4)
 list.removeAt(0)
 list.show()
-console.log(list.removeAt(2)) // false
 // next:  [ '5', 4 ]
 // prev:  [ 4, '5' ]
+console.log(list.removeAt(2)) // false
+list.append(6)
+list.show()
+// next: ['5', 4, 6]
+// prev: [6, 4, '5']
+list.swap("5", 6)
+list.show()
+// next:  [ '5', 4, 6 ]
+// prev:  [ 6, 4, '5' ]
+list.append(8)
+list.reverse()
+list.show()
+list.traverse(function (item) {
+    console.log(item.element)
+}) //8 5 4 6
