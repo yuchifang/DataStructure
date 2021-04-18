@@ -6,7 +6,7 @@ function Queue() {
     }
     // 輸出陣列第一個值
     this.dequeue = function () {
-        item.shift()
+        return item.shift()
     }
 
     this.front = function () {
@@ -30,13 +30,14 @@ function Queue() {
     }
 
 }
-let queueAnimals = new Queue()
-queueAnimals.enqueue('duck')
-queueAnimals.enqueue('deer')
-queueAnimals.enqueue('bear')
-console.log(queueAnimals.size()) // 3
-console.log(queueAnimals.isEmpty()) // false
-console.log(queueAnimals.front()) // duck
-console.log(queueAnimals.show()) // [ 'duck', 'deer', 'bear' ]
-queueAnimals.dequeue()
-console.log(queueAnimals.show())// [ 'deer', 'bear' ]
+module.exports = Queue
+// let queueAnimals = new Queue()
+// queueAnimals.enqueue('duck')
+// queueAnimals.enqueue('deer')
+// queueAnimals.enqueue('bear')
+// console.log(queueAnimals.size()) // 3
+// console.log(queueAnimals.isEmpty()) // false
+// console.log(queueAnimals.front()) // duck
+// console.log(queueAnimals.show()) // [ 'duck', 'deer', 'bear' ]
+// queueAnimals.dequeue()
+// console.log(queueAnimals.show())// [ 'deer', 'bear' ]
