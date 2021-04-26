@@ -89,7 +89,7 @@ console.log(hashTable.get('Mark')) // mark@gmail.com
 console.log(hashTable.remove('Mark')) // mark@gmail.com
 console.log(hashTable.get('Mark')); // false
 console.log(hashTable.keys())
-// [ 'Mary', 'Jamie', 'Sue', 'Ivy', 'Mark' ]
+// [ 'Mary', 'Jamie', 'Sue', 'Ivy' ]
 console.log(hashTable.values())
 // [
 //   'mary@gmail.com',
